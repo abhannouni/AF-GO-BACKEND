@@ -29,7 +29,7 @@ A Node.js/Express REST API backend with JWT-based authentication and role-based 
 ### 1. Clone & install
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/abhannouni/AF-GO-BACKEND.git
 cd AF-GO-BACKEND
 npm install
 ```
