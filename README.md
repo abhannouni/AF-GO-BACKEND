@@ -1,4 +1,4 @@
-# af-go-backend
+# AF-GO-BACKEND
 
 A Node.js/Express REST API backend with JWT-based authentication and role-based access control.
 
@@ -30,7 +30,7 @@ A Node.js/Express REST API backend with JWT-based authentication and role-based 
 
 ```bash
 git clone <repo-url>
-cd af-go-backend
+cd AF-GO-BACKEND
 npm install
 ```
 
@@ -73,7 +73,7 @@ Server starts at `http://localhost:3000`.
 ## Project Structure
 
 ```
-af-go-backend/
+AF-GO-BACKEND/
 ├── configs/
 │   └── db.js                 # MongoDB connection
 ├── controllers/
