@@ -6,6 +6,9 @@ dotenv.config();
 
 const connectDB = require('./configs/db');
 const authRoutes = require('./routes/auth.routes');
+const activityRoutes = require('./routes/activity.routes');
+const availabilityRoutes = require('./routes/availability.routes');
+const bookingRoutes = require('./routes/booking.routes');
 
 const app = express();
 
@@ -45,6 +48,9 @@ app.get(`${API}/health`, (req, res) => {
 });
 
 app.use(`${API}/auth`, authRoutes);
+app.use(`${API}/activities`, activityRoutes);
+app.use(`${API}/availability`, availabilityRoutes);
+app.use(`${API}/bookings`, bookingRoutes);
 
 // ─── 404 handler ──────────────────────────────────────────────────────────────
 app.use((req, res) => {
