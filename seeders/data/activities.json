@@ -1,0 +1,659 @@
+﻿[
+ {
+  "key": "act1",
+  "providerKey": "provider1",
+  "title": "Marrakech Medina Walking Tour",
+  "description": "Explore the heart of Marrakech with an expert local guide. Wander through the bustling souks of the ancient medina, discover hidden riads, visit the iconic Jemaa el-Fnaa square, and learn about the rich history of the Red City. Experience the vibrant colors, scents, and sounds of traditional Moroccan markets.",
+  "city": "Marrakech",
+  "category": "Sightseeing",
+  "price": 350,
+  "duration": 3,
+  "images": [
+   "https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Jemaa el-Fnaa, Medina, Marrakech 40000",
+   "lat": 31.6259,
+   "lng": -7.9893
+  },
+  "included": [
+   "Professional local guide (Arabic/French/English)",
+   "Medina entrance fees",
+   "Traditional mint tea break",
+   "Small group (max 15 people)"
+  ],
+  "excluded": [
+   "Personal purchases in souks",
+   "Lunch",
+   "Transportation to meeting point",
+   "Tips (optional)"
+  ],
+  "maxParticipants": 15,
+  "availabilities": [
+   {
+    "date": "2026-05-05",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "12:00", "availableSpots": 15 },
+     { "startTime": "14:00", "endTime": "17:00", "availableSpots": 12 }
+    ]
+   },
+   {
+    "date": "2026-05-12",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "12:00", "availableSpots": 15 },
+     { "startTime": "14:00", "endTime": "17:00", "availableSpots": 15 }
+    ]
+   },
+   {
+    "date": "2026-05-19",
+    "timeSlots": [
+     { "startTime": "10:00", "endTime": "13:00", "availableSpots": 10 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act2",
+  "providerKey": "provider1",
+  "title": "Hot Air Balloon Over Marrakech",
+  "description": "Experience the majesty of Morocco from above with a sunrise hot air balloon flight over Marrakech and the Atlas Mountains. Float peacefully over Berber villages, palm groves, and desert landscapes as the sun illuminates the High Atlas peaks. Includes traditional Berber breakfast after landing.",
+  "city": "Marrakech",
+  "category": "Adventure",
+  "price": 1200,
+  "duration": 4,
+  "images": [
+   "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Marrakech Balloon Launch Site, Route de l'Ourika, Marrakech",
+   "lat": 31.5656,
+   "lng": -7.9811
+  },
+  "included": [
+   "60-90 minute hot air balloon flight",
+   "Professional pilot and crew",
+   "Traditional Berber breakfast",
+   "Flight certificate",
+   "Hotel pickup and drop-off"
+  ],
+  "excluded": ["Gratuities", "Travel insurance", "Personal items"],
+  "maxParticipants": 30,
+  "availabilities": [
+   {
+    "date": "2026-05-06",
+    "timeSlots": [
+     { "startTime": "05:30", "endTime": "09:30", "availableSpots": 30 },
+     { "startTime": "06:00", "endTime": "10:00", "availableSpots": 28 },
+     { "startTime": "06:30", "endTime": "10:30", "availableSpots": 25 }
+    ]
+   },
+   {
+    "date": "2026-05-13",
+    "timeSlots": [
+     { "startTime": "05:30", "endTime": "09:30", "availableSpots": 30 },
+     { "startTime": "06:00", "endTime": "10:00", "availableSpots": 30 }
+    ]
+   },
+   {
+    "date": "2026-05-20",
+    "timeSlots": [
+     { "startTime": "05:30", "endTime": "09:30", "availableSpots": 30 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act3",
+  "providerKey": "provider1",
+  "title": "Moroccan Cooking Class in Marrakech",
+  "description": "Learn the secrets of authentic Moroccan cuisine from a local chef in a traditional riad. This hands-on class teaches you to prepare a complete Moroccan meal including tagine, couscous, and fresh bread. Shop for ingredients in the souk and enjoy your creations for lunch.",
+  "city": "Marrakech",
+  "category": "Cooking",
+  "price": 550,
+  "duration": 5,
+  "images": [
+   "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1596040033229-a0b0c8c7fc33?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Riad Cooking School, Rue Riad Zitoun el-Kedim, Marrakech 40000",
+   "lat": 31.6234,
+   "lng": -7.9878
+  },
+  "included": [
+   "Market tour with chef",
+   "All ingredients and equipment",
+   "Hands-on cooking instruction",
+   "Full lunch with your dishes",
+   "Recipe booklet",
+   "Moroccan tea ceremony"
+  ],
+  "excluded": [
+   "Hotel transportation",
+   "Alcoholic beverages",
+   "Additional food purchases"
+  ],
+  "maxParticipants": 8,
+  "availabilities": [
+   {
+    "date": "2026-05-07",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "14:00", "availableSpots": 8 }
+    ]
+   },
+   {
+    "date": "2026-05-14",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "14:00", "availableSpots": 8 },
+     { "startTime": "10:00", "endTime": "15:00", "availableSpots": 8 }
+    ]
+   },
+   {
+    "date": "2026-05-21",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "14:00", "availableSpots": 6 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act4",
+  "providerKey": "provider2",
+  "title": "Fes Medina Historical Tour",
+  "description": "Journey through 1,200 years of history in the UNESCO World Heritage medina of Fes el-Bali. Visit the ancient Al-Qarawiyyin University, explore the famous tanneries, discover artisan workshops, and navigate the labyrinthine souks. Experience the spiritual and cultural heart of Morocco with an expert historian guide.",
+  "city": "Fes",
+  "category": "Sightseeing",
+  "price": 380,
+  "duration": 4,
+  "images": [
+   "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1592288792941-e9e1f6d3e77e?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Bab Boujloud (Blue Gate), Fes el-Bali, Fes 30000",
+   "lat": 34.0641,
+   "lng": -4.9767
+  },
+  "included": [
+   "Expert historian guide (Arabic/French/English)",
+   "Tannery visit with rooftop view",
+   "Artisan workshop demonstrations",
+   "Traditional mint tea",
+   "All entrance fees"
+  ],
+  "excluded": [
+   "Lunch",
+   "Personal purchases",
+   "Transportation to Bab Boujloud",
+   "Gratuities"
+  ],
+  "maxParticipants": 12,
+  "availabilities": [
+   {
+    "date": "2026-05-08",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "13:00", "availableSpots": 12 }
+    ]
+   },
+   {
+    "date": "2026-05-15",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "13:00", "availableSpots": 10 },
+     { "startTime": "14:00", "endTime": "18:00", "availableSpots": 12 }
+    ]
+   },
+   {
+    "date": "2026-05-22",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "13:00", "availableSpots": 12 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act5",
+  "providerKey": "provider2",
+  "title": "Traditional Hammam & Spa Experience",
+  "description": "Immerse yourself in centuries-old Moroccan wellness traditions with an authentic hammam experience in Fes. This 4-hour session includes traditional steam bathing, black soap treatment, full-body exfoliation with kessa glove, rhassoul clay mask, and argan oil massage. Emerge refreshed and rejuvenated.",
+  "city": "Fes",
+  "category": "Wellness",
+  "price": 450,
+  "duration": 4,
+  "images": [
+   "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Hammam Mernissi, Rue Talaa Kebira, Fes Medina 30000",
+   "lat": 34.0619,
+   "lng": -4.9812
+  },
+  "included": [
+   "Private hammam session",
+   "Black soap treatment",
+   "Full-body exfoliation (kessa)",
+   "Rhassoul clay mask",
+   "Argan oil massage (30 min)",
+   "Traditional mint tea",
+   "All products and towels"
+  ],
+  "excluded": [
+   "Hotel transportation",
+   "Gratuities for therapists",
+   "Additional spa treatments"
+  ],
+  "maxParticipants": 10,
+  "availabilities": [
+   {
+    "date": "2026-05-09",
+    "timeSlots": [
+     { "startTime": "10:00", "endTime": "14:00", "availableSpots": 10 }
+    ]
+   },
+   {
+    "date": "2026-05-16",
+    "timeSlots": [
+     { "startTime": "10:00", "endTime": "14:00", "availableSpots": 8 }
+    ]
+   },
+   {
+    "date": "2026-05-23",
+    "timeSlots": [
+     { "startTime": "14:00", "endTime": "18:00", "availableSpots": 10 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act6",
+  "providerKey": "provider2",
+  "title": "Fes Pottery & Ceramics Workshop",
+  "description": "Discover the ancient art of Fes pottery in this hands-on workshop. Learn traditional techniques from master ceramicists, try your hand at the potter's wheel, and create your own tile or bowl using authentic Fassi designs and famous blue glazes. Your creation will be fired and shipped to you.",
+  "city": "Fes",
+  "category": "Arts & Crafts",
+  "price": 320,
+  "duration": 3,
+  "images": [
+   "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Fes Pottery Cooperative, Ain Nokbi, Fes 30000",
+   "lat": 34.0347,
+   "lng": -5.0028
+  },
+  "included": [
+   "Master ceramicist instructor",
+   "All materials and tools",
+   "Potter's wheel session",
+   "Hand-painting instruction",
+   "Firing and glazing of your piece",
+   "Mint tea and pastries"
+  ],
+  "excluded": [
+   "International shipping (available for purchase)",
+   "Additional pieces",
+   "Transportation to workshop",
+   "Pottery purchases from cooperative"
+  ],
+  "maxParticipants": 16,
+  "availabilities": [
+   {
+    "date": "2026-05-10",
+    "timeSlots": [
+     { "startTime": "10:00", "endTime": "13:00", "availableSpots": 16 },
+     { "startTime": "14:00", "endTime": "17:00", "availableSpots": 14 }
+    ]
+   },
+   {
+    "date": "2026-05-17",
+    "timeSlots": [
+     { "startTime": "10:00", "endTime": "13:00", "availableSpots": 16 }
+    ]
+   },
+   {
+    "date": "2026-05-24",
+    "timeSlots": [
+     { "startTime": "10:00", "endTime": "13:00", "availableSpots": 16 },
+     { "startTime": "14:00", "endTime": "17:00", "availableSpots": 16 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act7",
+  "providerKey": "provider3",
+  "title": "Surfing Lessons in Taghazout",
+  "description": "Learn to surf or improve your skills in one of Africa's best surf destinations. Taghazout's consistent waves and warm waters make it perfect for all levels. Our ISA-certified instructors provide personalized coaching, all equipment, and take you to the best spots based on conditions and your ability.",
+  "city": "Agadir",
+  "category": "Water Sports",
+  "price": 280,
+  "duration": 3,
+  "images": [
+   "https://images.unsplash.com/photo-1502933691298-84fc14542831?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Taghazout Beach, Taghazout 80022",
+   "lat": 30.5478,
+   "lng": -9.7081
+  },
+  "included": [
+   "ISA-certified surf instructor",
+   "Surfboard and wetsuit",
+   "Beach safety briefing",
+   "Photos of your session",
+   "Small group (max 10)"
+  ],
+  "excluded": [
+   "Transportation from Agadir (15 min)",
+   "Swimwear",
+   "Towel",
+   "Sunscreen",
+   "Lunch"
+  ],
+  "maxParticipants": 10,
+  "availabilities": [
+   {
+    "date": "2026-05-11",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "12:00", "availableSpots": 10 },
+     { "startTime": "14:00", "endTime": "17:00", "availableSpots": 10 }
+    ]
+   },
+   {
+    "date": "2026-05-18",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "12:00", "availableSpots": 8 }
+    ]
+   },
+   {
+    "date": "2026-05-25",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "12:00", "availableSpots": 10 },
+     { "startTime": "14:00", "endTime": "17:00", "availableSpots": 10 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act8",
+  "providerKey": "provider3",
+  "title": "Atlas Mountains Hiking Adventure",
+  "description": "Trek through the stunning High Atlas Mountains with panoramic views of North Africa's highest peaks. This full-day guided hike takes you through Berber villages, terraced fields, and juniper forests to reach spectacular viewpoints. Experience traditional Berber hospitality with lunch in a mountain village.",
+  "city": "Agadir",
+  "category": "Hiking",
+  "price": 420,
+  "duration": 8,
+  "images": [
+   "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1591825729269-caeb344f6df2?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Toubkal National Park, High Atlas, Imlil 42152",
+   "lat": 31.1367,
+   "lng": -7.9175
+  },
+  "included": [
+   "Experienced mountain guide",
+   "Hotel pickup from Agadir (2h drive)",
+   "Traditional Berber lunch",
+   "Mint tea in village",
+   "Hiking poles and first-aid kit",
+   "Small group (max 12)"
+  ],
+  "excluded": [
+   "Hiking boots (rental available)",
+   "Personal snacks and water",
+   "Gratuities",
+   "Travel insurance"
+  ],
+  "maxParticipants": 12,
+  "availabilities": [
+   {
+    "date": "2026-05-05",
+    "timeSlots": [
+     { "startTime": "07:00", "endTime": "15:00", "availableSpots": 12 }
+    ]
+   },
+   {
+    "date": "2026-05-12",
+    "timeSlots": [
+     { "startTime": "07:00", "endTime": "15:00", "availableSpots": 10 }
+    ]
+   },
+   {
+    "date": "2026-05-19",
+    "timeSlots": [
+     { "startTime": "07:00", "endTime": "15:00", "availableSpots": 12 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act9",
+  "providerKey": "provider3",
+  "title": "Paradise Valley Canyoning & Swimming",
+  "description": "Discover the hidden oasis of Paradise Valley in the Atlas foothills. This adventure combines rock scrambling, cliff jumping (optional), and swimming in crystal-clear natural pools surrounded by palm trees and dramatic canyon walls. Perfect for adventurous souls seeking Morocco's natural beauty off the beaten path.",
+  "city": "Agadir",
+  "category": "Adventure",
+  "price": 380,
+  "duration": 5,
+  "images": [
+   "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Paradise Valley, Aourir, Agadir Province 80023",
+   "lat": 30.5025,
+   "lng": -9.5981
+  },
+  "included": [
+   "Experienced adventure guide",
+   "Round-trip transportation from Agadir",
+   "Safety equipment (helmet, harness if needed)",
+   "Waterproof bag for belongings",
+   "Light snacks and water",
+   "First-aid kit"
+  ],
+  "excluded": [
+   "Swimwear and towel",
+   "Waterproof camera (recommended)",
+   "Lunch (available at local cafés)",
+   "Change of clothes"
+  ],
+  "maxParticipants": 6,
+  "availabilities": [
+   {
+    "date": "2026-05-06",
+    "timeSlots": [
+     { "startTime": "08:30", "endTime": "13:30", "availableSpots": 6 },
+     { "startTime": "14:00", "endTime": "19:00", "availableSpots": 6 }
+    ]
+   },
+   {
+    "date": "2026-05-13",
+    "timeSlots": [
+     { "startTime": "08:30", "endTime": "13:30", "availableSpots": 4 }
+    ]
+   },
+   {
+    "date": "2026-05-20",
+    "timeSlots": [
+     { "startTime": "08:30", "endTime": "13:30", "availableSpots": 6 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act10",
+  "providerKey": "provider4",
+  "title": "Sahara Desert Camel Trek & Camp",
+  "description": "Experience the magic of the Sahara Desert with a sunset camel trek into the golden dunes of Erg Chebbi. Watch the sun set over the endless desert, enjoy a traditional Berber dinner under the stars, and spend the night in a comfortable desert camp. Wake to a spectacular Sahara sunrise.",
+  "city": "Merzouga",
+  "category": "Adventure",
+  "price": 650,
+  "duration": 18,
+  "images": [
+   "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Erg Chebbi Dunes, Merzouga 52202",
+   "lat": 31.0801,
+   "lng": -4.0133
+  },
+  "included": [
+   "Sunset camel trek (90 minutes)",
+   "Sunrise camel trek (90 minutes)",
+   "Traditional Berber dinner",
+   "Breakfast",
+   "Desert camp accommodation (private tent)",
+   "Bedouin music around campfire",
+   "Sandboarding equipment"
+  ],
+  "excluded": [
+   "Transportation to Merzouga",
+   "Lunch",
+   "Alcoholic beverages",
+   "Gratuities",
+   "Personal expenses"
+  ],
+  "maxParticipants": 14,
+  "availabilities": [
+   {
+    "date": "2026-05-07",
+    "timeSlots": [
+     { "startTime": "16:00", "endTime": "10:00", "availableSpots": 14 }
+    ]
+   },
+   {
+    "date": "2026-05-14",
+    "timeSlots": [
+     { "startTime": "16:00", "endTime": "10:00", "availableSpots": 14 },
+     { "startTime": "16:30", "endTime": "10:30", "availableSpots": 12 }
+    ]
+   },
+   {
+    "date": "2026-05-21",
+    "timeSlots": [
+     { "startTime": "16:00", "endTime": "10:00", "availableSpots": 14 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act11",
+  "providerKey": "provider4",
+  "title": "Chefchaouen Blue Pearl Photography Tour",
+  "description": "Capture the enchanting blue-washed streets of Chefchaouen, Morocco's most Instagram-worthy destination. This photography-focused tour takes you through the medina's most photogenic spots at golden hour, teaches composition techniques, and reveals hidden corners known only to locals. Perfect for all photography levels.",
+  "city": "Chefchaouen",
+  "category": "Photography",
+  "price": 420,
+  "duration": 4,
+  "images": [
+   "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1591825729269-caeb344f6df2?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Place Outa el Hammam, Chefchaouen 91000",
+   "lat": 35.1688,
+   "lng": -5.2636
+  },
+  "included": [
+   "Professional photographer guide",
+   "Access to best photo spots",
+   "Photography tips and techniques",
+   "Image review session",
+   "Traditional mint tea",
+   "Small group (max 10)"
+  ],
+  "excluded": [
+   "Camera or smartphone (must bring)",
+   "Transportation to Chefchaouen",
+   "Lunch",
+   "Photo editing software",
+   "Printed photos"
+  ],
+  "maxParticipants": 10,
+  "_note": "Edge case: activity with no bookings",
+  "availabilities": [
+   {
+    "date": "2026-05-08",
+    "timeSlots": [
+     { "startTime": "15:00", "endTime": "19:00", "availableSpots": 10 }
+    ]
+   },
+   {
+    "date": "2026-05-15",
+    "timeSlots": [
+     { "startTime": "15:00", "endTime": "19:00", "availableSpots": 10 }
+    ]
+   },
+   {
+    "date": "2026-05-22",
+    "timeSlots": [
+     { "startTime": "15:00", "endTime": "19:00", "availableSpots": 10 }
+    ]
+   }
+  ]
+ },
+ {
+  "key": "act12",
+  "providerKey": "provider4",
+  "title": "Sandboarding in Merzouga Dunes",
+  "description": "Experience the thrill of sandboarding down the towering dunes of Erg Chebbi in the Sahara Desert. Similar to snowboarding but on sand, this adrenaline-pumping activity offers an unforgettable way to explore Morocco's greatest natural wonder. All equipment and instruction provided for beginners and experienced boarders.",
+  "city": "Merzouga",
+  "category": "Adventure",
+  "price": 220,
+  "duration": 2,
+  "images": [
+   "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=800&h=600&fit=crop",
+   "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800&h=600&fit=crop"
+  ],
+  "location": {
+   "address": "Erg Chebbi Dunes, Merzouga 52202",
+   "lat": 31.0892,
+   "lng": -4.0088
+  },
+  "included": [
+   "Sandboarding equipment and board",
+   "Safety instruction and demo",
+   "Expert guide",
+   "Transportation to dunes",
+   "Bottled water",
+   "Action photos"
+  ],
+  "excluded": [
+   "Protective eyewear (recommended, rental available)",
+   "Closed-toe shoes (required)",
+   "Additional refreshments",
+   "GoPro rental"
+  ],
+  "maxParticipants": 8,
+  "availabilities": [
+   {
+    "date": "2026-05-09",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "11:00", "availableSpots": 8 },
+     { "startTime": "16:00", "endTime": "18:00", "availableSpots": 8 }
+    ]
+   },
+   {
+    "date": "2026-05-16",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "11:00", "availableSpots": 6 },
+     { "startTime": "16:00", "endTime": "18:00", "availableSpots": 8 }
+    ]
+   },
+   {
+    "date": "2026-05-23",
+    "timeSlots": [
+     { "startTime": "09:00", "endTime": "11:00", "availableSpots": 8 }
+    ]
+   }
+  ]
+ }
+]

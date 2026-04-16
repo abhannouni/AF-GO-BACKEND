@@ -1,0 +1,167 @@
+[
+ {
+  "key": "booking1",
+  "userKey": "client1",
+  "activityKey": "act1",
+  "date": "2026-05-05",
+  "time": "09:00",
+  "participants": 2,
+  "totalPrice": 700,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ },
+ {
+  "key": "booking2",
+  "userKey": "client1",
+  "activityKey": "act4",
+  "date": "2026-05-08",
+  "time": "09:00",
+  "participants": 1,
+  "totalPrice": 380,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ },
+ {
+  "key": "booking3",
+  "userKey": "client1",
+  "activityKey": "act7",
+  "date": "2026-05-11",
+  "time": "09:00",
+  "participants": 3,
+  "totalPrice": 840,
+  "status": "pending",
+  "paymentStatus": "pending"
+ },
+ {
+  "key": "booking4",
+  "userKey": "client2",
+  "activityKey": "act2",
+  "date": "2026-05-06",
+  "time": "05:30",
+  "participants": 2,
+  "totalPrice": 2400,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ },
+ {
+  "key": "booking5",
+  "userKey": "client2",
+  "activityKey": "act5",
+  "date": "2026-05-09",
+  "time": "10:00",
+  "participants": 1,
+  "totalPrice": 450,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ },
+ {
+  "key": "booking6",
+  "userKey": "client2",
+  "activityKey": "act10",
+  "date": "2026-05-07",
+  "time": "16:00",
+  "participants": 2,
+  "totalPrice": 1300,
+  "status": "cancelled",
+  "paymentStatus": "refunded"
+ },
+ {
+  "key": "booking7",
+  "userKey": "client3",
+  "activityKey": "act3",
+  "date": "2026-05-07",
+  "time": "09:00",
+  "participants": 1,
+  "totalPrice": 550,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ },
+ {
+  "key": "booking8",
+  "userKey": "client3",
+  "activityKey": "act8",
+  "date": "2026-05-05",
+  "time": "07:00",
+  "participants": 2,
+  "totalPrice": 840,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ },
+ {
+  "key": "booking9",
+  "userKey": "client4",
+  "activityKey": "act6",
+  "date": "2026-05-10",
+  "time": "10:00",
+  "participants": 4,
+  "totalPrice": 1280,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ },
+ {
+  "key": "booking10",
+  "userKey": "client4",
+  "activityKey": "act9",
+  "date": "2026-05-06",
+  "time": "08:30",
+  "participants": 2,
+  "totalPrice": 760,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ },
+ {
+  "key": "booking11",
+  "userKey": "client5",
+  "activityKey": "act1",
+  "date": "2026-05-12",
+  "time": "14:00",
+  "participants": 1,
+  "totalPrice": 350,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ },
+ {
+  "key": "booking12",
+  "userKey": "client5",
+  "activityKey": "act12",
+  "date": "2026-05-09",
+  "time": "16:00",
+  "participants": 2,
+  "totalPrice": 440,
+  "status": "pending",
+  "paymentStatus": "pending"
+ },
+ {
+  "key": "booking13",
+  "userKey": "client1",
+  "activityKey": "act3",
+  "date": "2026-05-14",
+  "time": "10:00",
+  "participants": 1,
+  "totalPrice": 550,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ },
+ {
+  "key": "booking14",
+  "userKey": "client2",
+  "activityKey": "act4",
+  "date": "2026-05-22",
+  "time": "09:00",
+  "participants": 3,
+  "totalPrice": 1140,
+  "status": "pending",
+  "paymentStatus": "pending"
+ },
+ {
+  "key": "booking15",
+  "userKey": "client3",
+  "activityKey": "act12",
+  "date": "2026-05-16",
+  "time": "09:00",
+  "participants": 2,
+  "totalPrice": 440,
+  "status": "confirmed",
+  "paymentStatus": "paid"
+ }
+]

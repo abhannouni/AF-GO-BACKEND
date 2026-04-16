@@ -1,0 +1,80 @@
+[
+ {
+  "key": "admin",
+  "username": "admin",
+  "email": "admin@afgo.dev",
+  "password": "Admin@1234",
+  "role": "admin"
+ },
+ {
+  "key": "provider1",
+  "username": "jean_dupont",
+  "email": "jean.dupont@afgo.dev",
+  "password": "Provider@1234",
+  "role": "prestataire"
+ },
+ {
+  "key": "provider2",
+  "username": "marie_martin",
+  "email": "marie.martin@afgo.dev",
+  "password": "Provider@1234",
+  "role": "prestataire"
+ },
+ {
+  "key": "provider3",
+  "username": "pierre_leblanc",
+  "email": "pierre.leblanc@afgo.dev",
+  "password": "Provider@1234",
+  "role": "prestataire"
+ },
+ {
+  "key": "provider4",
+  "username": "sophie_bernard",
+  "email": "sophie.bernard@afgo.dev",
+  "password": "Provider@1234",
+  "role": "prestataire"
+ },
+ {
+  "key": "client1",
+  "username": "alice_moreau",
+  "email": "alice.moreau@afgo.dev",
+  "password": "Client@1234",
+  "role": "client"
+ },
+ {
+  "key": "client2",
+  "username": "thomas_laurent",
+  "email": "thomas.laurent@afgo.dev",
+  "password": "Client@1234",
+  "role": "client"
+ },
+ {
+  "key": "client3",
+  "username": "emma_petit",
+  "email": "emma.petit@afgo.dev",
+  "password": "Client@1234",
+  "role": "client"
+ },
+ {
+  "key": "client4",
+  "username": "lucas_simon",
+  "email": "lucas.simon@afgo.dev",
+  "password": "Client@1234",
+  "role": "client"
+ },
+ {
+  "key": "client5",
+  "username": "chloe_garcia",
+  "email": "chloe.garcia@afgo.dev",
+  "password": "Client@1234",
+  "role": "client"
+ },
+ {
+  "key": "client6",
+  "username": "noah_leroy",
+  "email": "noah.leroy@afgo.dev",
+  "password": "Client@1234",
+  "role": "client",
+  "_note": "Edge case: client with no bookings"
+ }
+]
