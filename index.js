@@ -9,6 +9,7 @@ const authRoutes = require('./routes/auth.routes');
 const activityRoutes = require('./routes/activity.routes');
 const availabilityRoutes = require('./routes/availability.routes');
 const bookingRoutes = require('./routes/booking.routes');
+const tripRoutes = require('./routes/trip.routes');
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use(`${API}/auth`, authRoutes);
 app.use(`${API}/activities`, activityRoutes);
 app.use(`${API}/availability`, availabilityRoutes);
 app.use(`${API}/bookings`, bookingRoutes);
+app.use(`${API}/trips`, tripRoutes);
 
 // ─── 404 handler ──────────────────────────────────────────────────────────────
 app.use((req, res) => {
