@@ -14,7 +14,23 @@ const tripRoutes = require('./routes/trip.routes');
 const app = express();
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
-app.use(cors());
+const allowedOrigins = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim())
+    : [];
+
+app.use(
+    cors({
+        origin: (origin, callback) => {
+            // Allow requests with no origin (e.g. curl, Postman) or listed origins
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        credentials: true,
+    })
+);
 
 // ─── Body parsers ─────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10kb' }));
