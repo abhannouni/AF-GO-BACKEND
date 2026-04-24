@@ -153,13 +153,16 @@ exports.getSlots = async (req, res) => {
         const durationMins = Number(activity.duration) * 60; // activity.duration is in hours
 
         const slots = availability.timeSlots.map((slot) => {
-            const bookedParticipants = bookedMap[slot.startTime] || 0;
-            const remainingSpots = Math.max(0, slot.availableSpots - bookedParticipants);
+            const capacity = slot.availableSpots;
+            const bookedSpots = bookedMap[slot.startTime] || 0;
+            const remainingSpots = Math.max(0, capacity - bookedSpots);
             const endTime = fromMinutes(toMinutes(slot.startTime) + durationMins);
             return {
                 startTime: slot.startTime,
                 endTime,
-                availableSpots: slot.availableSpots,
+                capacity,
+                bookedSpots,
+                availableSpots: capacity,
                 remainingSpots,
                 isAvailable: remainingSpots > 0,
             };

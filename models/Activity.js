@@ -17,6 +17,7 @@ const activitySchema = new mongoose.Schema(
         },
         included: { type: [String], default: [] },
         excluded: { type: [String], default: [] },
+        capacity: { type: Number, min: 1 },
         maxParticipants: Number,
         rating: {
             average: { type: Number, default: 0 },

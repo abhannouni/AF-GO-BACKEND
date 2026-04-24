@@ -6,6 +6,12 @@ const pick = (obj, keys) =>
         return acc;
     }, {});
 
+const withCapacity = (activityDoc) => {
+    const data = activityDoc?.toObject ? activityDoc.toObject() : activityDoc;
+    const capacity = data?.capacity ?? data?.maxParticipants ?? null;
+    return { ...data, capacity };
+};
+
 exports.create = async (req, res) => {
     try {
         const payload = pick(req.body, [
@@ -20,15 +26,20 @@ exports.create = async (req, res) => {
             'location',
             'included',
             'excluded',
+            'capacity',
             'maxParticipants',
             'rating',
         ]);
+
+        if (payload.capacity == null && payload.maxParticipants != null) {
+            payload.capacity = payload.maxParticipants;
+        }
 
         // MVP default: if providerId not sent, use authenticated user
         if (!payload.providerId && req.user?.id) payload.providerId = req.user.id;
 
         const activity = await Activity.create(payload);
-        return res.status(201).json({ success: true, message: 'Activity created', data: activity });
+        return res.status(201).json({ success: true, message: 'Activity created', data: withCapacity(activity) });
     } catch (err) {
         console.error('[activity.create]', err.message);
         return res.status(500).json({ success: false, message: 'Internal server error' });
@@ -44,7 +55,7 @@ exports.list = async (req, res) => {
         if (providerId) filter.providerId = providerId;
 
         const activities = await Activity.find(filter).sort({ createdAt: -1 });
-        return res.status(200).json({ success: true, data: activities });
+        return res.status(200).json({ success: true, data: activities.map(withCapacity) });
     } catch (err) {
         console.error('[activity.list]', err.message);
         return res.status(500).json({ success: false, message: 'Internal server error' });
@@ -55,7 +66,7 @@ exports.getById = async (req, res) => {
     try {
         const activity = await Activity.findById(req.params.id);
         if (!activity) return res.status(404).json({ success: false, message: 'Activity not found' });
-        return res.status(200).json({ success: true, data: activity });
+        return res.status(200).json({ success: true, data: withCapacity(activity) });
     } catch (err) {
         console.error('[activity.getById]', err.message);
         return res.status(500).json({ success: false, message: 'Internal server error' });
@@ -84,14 +95,19 @@ exports.update = async (req, res) => {
             'location',
             'included',
             'excluded',
+            'capacity',
             'maxParticipants',
             'rating',
         ]);
 
+        if (payload.capacity == null && payload.maxParticipants != null) {
+            payload.capacity = payload.maxParticipants;
+        }
+
         Object.assign(activity, payload);
         await activity.save();
 
-        return res.status(200).json({ success: true, message: 'Activity updated', data: activity });
+        return res.status(200).json({ success: true, message: 'Activity updated', data: withCapacity(activity) });
     } catch (err) {
         console.error('[activity.update]', err.message);
         return res.status(500).json({ success: false, message: 'Internal server error' });
