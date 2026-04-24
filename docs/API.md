@@ -298,7 +298,27 @@ DELETE /activities/:id
 
 ## Availability
 
-### List availability
+All endpoints are under `/availability`. Providers define time slots for their activities; clients inspect capacity before booking.
+
+### Data model
+
+```
+Availability
+  _id           ObjectId
+  activityId    ObjectId → Activity (required)
+  providerId    ObjectId → User/prestataire (required)
+  date          Date     (stored as UTC midnight)
+  timeSlots     Array<{ startTime: "HH:mm", availableSpots: integer ≥ 1 }>
+  isBlocked     Boolean  (default: false)
+  createdAt / updatedAt
+```
+
+> `endTime` is **not** stored — it is computed on-the-fly from `activity.duration`.  
+> When `isBlocked: true` the provider has explicitly closed the date; `timeSlots` is always `[]` and no bookings are accepted.
+
+---
+
+### 1. List availability records
 
 ```
 GET /availability
@@ -308,14 +328,16 @@ GET /availability
 
 **Query Parameters**
 
-| Param        | Type   | Description                            |
-|--------------|--------|----------------------------------------|
-| `activityId` | string | Filter by activity (ObjectId)          |
-| `date`       | string | Filter by date — format `YYYY-MM-DD`   |
+| Param        | Type   | Description                                |
+|--------------|--------|--------------------------------------------|
+| `activityId` | string | Filter by activity ObjectId                |
+| `providerId` | string | Filter by provider ObjectId                |
+| `date`       | string | Filter by exact date — `YYYY-MM-DD`        |
 
 **Example**
 ```
-GET /availability?activityId=664abc123&date=2026-05-01
+GET /availability?activityId=664abc123
+GET /availability?providerId=664xyz&date=2026-05-10
 ```
 
 **Response `200`**
@@ -326,11 +348,15 @@ GET /availability?activityId=664abc123&date=2026-05-01
     {
       "_id": "664def...",
       "activityId": "664abc123...",
-      "date": "2026-05-01",
+      "providerId": "664xyz...",
+      "date": "2026-05-10T00:00:00.000Z",
       "timeSlots": [
-        { "startTime": "09:00", "endTime": "11:00", "availableSpots": 8 },
-        { "startTime": "14:00", "endTime": "16:00", "availableSpots": 10 }
-      ]
+        { "startTime": "09:00", "availableSpots": 12 },
+        { "startTime": "14:00", "availableSpots": 10 }
+      ],
+      "isBlocked": false,
+      "createdAt": "2026-04-20T10:00:00.000Z",
+      "updatedAt": "2026-04-20T10:00:00.000Z"
     }
   ]
 }
@@ -338,31 +364,175 @@ GET /availability?activityId=664abc123&date=2026-05-01
 
 ---
 
-### Create availability
+### 2. Get available slots (with remaining capacity)
+
+```
+GET /availability/slots
+```
+
+Returns each slot annotated with `remainingSpots` (deducting active bookings) and `endTime` (derived from `activity.duration`). Use this in the booking flow when the client selects a date.
+
+**Auth:** None
+
+**Query Parameters**
+
+| Param        | Type   | Required | Description                        |
+|--------------|--------|----------|------------------------------------|
+| `activityId` | string | Yes      | Activity ObjectId                  |
+| `date`       | string | Yes      | Date in `YYYY-MM-DD` format        |
+
+**Example**
+```
+GET /availability/slots?activityId=664abc123&date=2026-05-10
+```
+
+**Response `200` — slots available**
+```json
+{
+  "success": true,
+  "data": {
+    "activityId": "664abc123...",
+    "providerId": "664xyz...",
+    "date": "2026-05-10T00:00:00.000Z",
+    "durationHours": 3,
+    "isBlocked": false,
+    "slots": [
+      {
+        "startTime": "09:00",
+        "endTime": "12:00",
+        "availableSpots": 12,
+        "remainingSpots": 10,
+        "isAvailable": true
+      },
+      {
+        "startTime": "14:00",
+        "endTime": "17:00",
+        "availableSpots": 10,
+        "remainingSpots": 0,
+        "isAvailable": false
+      }
+    ]
+  }
+}
+```
+
+**Response `200` — no availability or date is blocked**
+```json
+{
+  "success": true,
+  "data": { "slots": [], "date": "2026-05-10T00:00:00.000Z", "isBlocked": true }
+}
+```
+
+**Error responses**
+
+| Status | Message |
+|--------|---------|
+| `400`  | `activityId and date are required.` |
+| `404`  | `Activity not found.` |
+
+---
+
+### 3. Get calendar view (month)
+
+```
+GET /availability/calendar
+```
+
+Returns per-day status for every day of a given month. Designed for rendering a date-picker calendar in the booking UI.
+
+**Auth:** None
+
+**Query Parameters**
+
+| Param        | Type   | Required | Description               |
+|--------------|--------|----------|---------------------------|
+| `activityId` | string | Yes      | Activity ObjectId         |
+| `year`       | number | Yes      | 4-digit year e.g. `2026`  |
+| `month`      | number | Yes      | 1-based month e.g. `5`    |
+
+**Example**
+```
+GET /availability/calendar?activityId=664abc123&year=2026&month=5
+```
+
+**Response `200`**
+```json
+{
+  "success": true,
+  "data": [
+    { "date": "2026-05-01", "status": "past",      "availableSlotCount": 0 },
+    { "date": "2026-05-05", "status": "available", "availableSlotCount": 2 },
+    { "date": "2026-05-06", "status": "full",      "availableSlotCount": 0 },
+    { "date": "2026-05-07", "status": "blocked",   "availableSlotCount": 0 },
+    { "date": "2026-05-08", "status": "none",      "availableSlotCount": 0 }
+  ]
+}
+```
+
+**Day statuses**
+
+| Status      | Meaning                                                      |
+|-------------|--------------------------------------------------------------|
+| `available` | At least one slot with remaining capacity                    |
+| `full`      | All defined slots are fully booked                           |
+| `blocked`   | Provider explicitly closed this date                         |
+| `none`      | No availability record exists for this date                  |
+| `past`      | Date is before today — always disabled for new bookings      |
+
+**Error responses**
+
+| Status | Message |
+|--------|---------|
+| `400`  | `activityId, year, and month are required.` |
+| `400`  | `Invalid year or month.` |
+
+---
+
+### 4. Create / upsert availability (single date)
 
 ```
 POST /availability
 ```
 
+Creates a new record or replaces the existing one for the same `(activityId, providerId, date)` triple. Set `isBlocked: true` to close a date without providing time slots.
+
 **Auth:** Required — `prestataire` or `admin`
 
 **Request Body**
 
-| Field        | Type     | Required | Description                          |
-|--------------|----------|----------|--------------------------------------|
-| `activityId` | string   | Yes      | Target activity ObjectId             |
-| `date`       | string   | Yes      | Date in `YYYY-MM-DD` format          |
-| `timeSlots`  | object[] | Yes      | Array of `{ startTime, endTime, availableSpots }` |
+| Field        | Type      | Required                 | Constraints                                          |
+|--------------|-----------|--------------------------|------------------------------------------------------|
+| `activityId` | string    | Yes                      | ObjectId — must be an activity you own               |
+| `date`       | string    | Yes                      | `YYYY-MM-DD`                                         |
+| `timeSlots`  | object[]  | Yes (unless `isBlocked`) | Array of `{ startTime, availableSpots }` objects     |
+| `isBlocked`  | boolean   | No                       | `true` = close date; clears any existing time slots  |
 
-**Example**
+**`timeSlots` item constraints**
+
+| Field            | Rule                       |
+|------------------|----------------------------|
+| `startTime`      | Required — `HH:mm` 24-hour |
+| `availableSpots` | Required — integer ≥ 1     |
+
+**Example — set two time slots**
 ```json
 {
   "activityId": "664abc123...",
-  "date": "2026-05-01",
+  "date": "2026-05-10",
   "timeSlots": [
-    { "startTime": "09:00", "endTime": "11:00", "availableSpots": 8 },
-    { "startTime": "14:00", "endTime": "16:00", "availableSpots": 10 }
+    { "startTime": "09:00", "availableSpots": 12 },
+    { "startTime": "14:00", "availableSpots": 10 }
   ]
+}
+```
+
+**Example — block a date**
+```json
+{
+  "activityId": "664abc123...",
+  "date": "2026-05-26",
+  "isBlocked": true
 }
 ```
 
@@ -370,10 +540,203 @@ POST /availability
 ```json
 {
   "success": true,
-  "message": "Availability created",
-  "data": { /* Availability object */ }
+  "message": "Availability saved.",
+  "data": {
+    "_id": "664def...",
+    "activityId": "664abc123...",
+    "providerId": "664xyz...",
+    "date": "2026-05-10T00:00:00.000Z",
+    "timeSlots": [
+      { "startTime": "09:00", "availableSpots": 12 },
+      { "startTime": "14:00", "availableSpots": 10 }
+    ],
+    "isBlocked": false
+  }
 }
 ```
+
+**Error responses**
+
+| Status | Message |
+|--------|---------|
+| `400`  | `activityId and date are required.` |
+| `400`  | `Provide at least one timeSlot, or set isBlocked=true.` |
+| `400`  | `Invalid startTime format: "…". Use HH:mm.` |
+| `400`  | `Each slot must have at least 1 available spot.` |
+| `403`  | `You can only manage availability for your own activities.` |
+| `404`  | `Activity not found.` |
+
+---
+
+### 5. Bulk create / upsert (date range)
+
+```
+POST /availability/bulk
+```
+
+Upserts availability for every day in a range, with an optional weekday filter. Ideal for recurring schedules (e.g., every Mon–Fri for a month). Maximum range: 366 days.
+
+**Auth:** Required — `prestataire` or `admin`
+
+**Request Body**
+
+| Field        | Type      | Required                 | Description                                                        |
+|--------------|-----------|--------------------------|--------------------------------------------------------------------|
+| `activityId` | string    | Yes                      | ObjectId — must be an activity you own                             |
+| `startDate`  | string    | Yes                      | Range start — `YYYY-MM-DD`                                         |
+| `endDate`    | string    | Yes                      | Range end — `YYYY-MM-DD` (inclusive, max 366 days from start)      |
+| `weekdays`   | number[]  | No                       | JS `getUTCDay()` values: `0`=Sun `1`=Mon … `6`=Sat. Omit for all days |
+| `timeSlots`  | object[]  | Yes (unless `isBlocked`) | Same structure as single-date create                               |
+| `isBlocked`  | boolean   | No                       | `true` = block all matching dates                                  |
+
+**Example — set Mon–Fri schedule for May 2026**
+```json
+{
+  "activityId": "664abc123...",
+  "startDate": "2026-05-01",
+  "endDate": "2026-05-31",
+  "weekdays": [1, 2, 3, 4, 5],
+  "timeSlots": [
+    { "startTime": "09:00", "availableSpots": 10 },
+    { "startTime": "14:00", "availableSpots": 10 }
+  ]
+}
+```
+
+**Example — block all Sundays in the same range**
+```json
+{
+  "activityId": "664abc123...",
+  "startDate": "2026-05-01",
+  "endDate": "2026-05-31",
+  "weekdays": [0],
+  "isBlocked": true
+}
+```
+
+**Response `201`**
+```json
+{
+  "success": true,
+  "message": "Availability saved for 22 day(s).",
+  "count": 22
+}
+```
+
+**Error responses**
+
+| Status | Message |
+|--------|---------|
+| `400`  | `activityId, startDate, and endDate are required.` |
+| `400`  | `Provide at least one timeSlot, or set isBlocked=true.` |
+| `400`  | `endDate must be on or after startDate.` |
+| `400`  | `Date range cannot exceed 366 days.` |
+| `400`  | `No matching dates found in the selected range and weekday filter.` |
+| `403`  | `You can only manage availability for your own activities.` |
+| `404`  | `Activity not found.` |
+
+---
+
+### 6. Update availability record
+
+```
+PATCH /availability/:id
+```
+
+Replaces the time slots of an existing record (found by MongoDB `_id`). Can also toggle `isBlocked`. Use `POST /availability` (upsert) if you don't have the record's `_id`.
+
+**Auth:** Required — record owner (`prestataire`) or `admin`
+
+**URL Parameters**
+
+| Param | Description                    |
+|-------|--------------------------------|
+| `id`  | Availability record ObjectId   |
+
+**Request Body**
+
+| Field       | Type      | Required                 | Description                                   |
+|-------------|-----------|--------------------------|-----------------------------------------------|
+| `timeSlots` | object[]  | Yes (unless `isBlocked`) | Replaces all existing slots; min 1 slot       |
+| `isBlocked` | boolean   | No                       | Toggle block state; clears slots when `true`  |
+
+**Example — replace slots**
+```json
+{
+  "timeSlots": [
+    { "startTime": "10:00", "availableSpots": 8 }
+  ]
+}
+```
+
+**Example — block record**
+```json
+{ "isBlocked": true }
+```
+
+**Response `200`**
+```json
+{
+  "success": true,
+  "message": "Availability updated.",
+  "data": { /* Updated availability object */ }
+}
+```
+
+**Error responses**
+
+| Status | Message |
+|--------|---------|
+| `400`  | `Provide at least one timeSlot, or set isBlocked=true.` |
+| `400`  | `Invalid startTime format: "…". Use HH:mm.` |
+| `400`  | `Each slot must have at least 1 available spot.` |
+| `403`  | `Access denied.` |
+| `404`  | `Availability record not found.` |
+
+---
+
+### 7. Delete availability record
+
+```
+DELETE /availability/:id
+```
+
+Removes an availability record. Fails if any active (`pending` or `confirmed`) bookings exist for this date — cancel them first.
+
+**Auth:** Required — record owner (`prestataire`) or `admin`
+
+**URL Parameters**
+
+| Param | Description                    |
+|-------|--------------------------------|
+| `id`  | Availability record ObjectId   |
+
+**Response `200`**
+```json
+{ "success": true, "message": "Availability deleted." }
+```
+
+**Error responses**
+
+| Status | Message |
+|--------|---------|
+| `403`  | `Access denied.` |
+| `404`  | `Availability record not found.` |
+| `409`  | `Cannot delete: N active booking(s) exist for this date. Cancel them first.` |
+
+---
+
+### Validation rules summary
+
+| Rule                               | Enforced in                       |
+|------------------------------------|-----------------------------------|
+| `startTime` must match `HH:mm`     | `create`, `update`, `bulk`        |
+| `availableSpots` must be ≥ 1       | `create`, `update`, `bulk`        |
+| At least one slot (or `isBlocked`) | `create`, `update`, `bulk`        |
+| Activity must belong to provider   | `create`, `bulk`                  |
+| Date range ≤ 366 days              | `bulk`                            |
+| Active bookings block deletion     | `delete`                          |
+| `isBlocked=true` blocks bookings   | booking `create` (booking system) |
 
 ---
 
@@ -389,43 +752,40 @@ POST /bookings
 
 **Request Body**
 
-| Field         | Type   | Required | Description                              |
-|---------------|--------|----------|------------------------------------------|
-| `activityId`  | string | Yes      | Activity to book (ObjectId)              |
-| `providerId`  | string | Yes      | Provider of the activity (ObjectId)      |
-| `date`        | string | Yes      | Booking date — `YYYY-MM-DD`              |
-| `time`        | string | Yes      | Booking time slot — `HH:MM`              |
-| `participants`| number | Yes      | Number of participants                   |
-| `totalPrice`  | number | Yes      | Total calculated price                   |
+| Field          | Type   | Required | Description                                           |
+|----------------|--------|----------|-------------------------------------------------------|
+| `activityId`   | string | Yes      | Activity to book (ObjectId)                           |
+| `date`         | string | Yes      | Booking date — `YYYY-MM-DD`                           |
+| `startTime`    | string | Yes      | Time slot — `HH:mm` (must match a defined slot)       |
+| `participants` | number | Yes      | Number of participants (min 1)                        |
 
 **Example**
 ```json
 {
   "activityId": "664abc123...",
-  "providerId": "664xyz...",
-  "date": "2026-05-01",
-  "time": "09:00",
-  "participants": 2,
-  "totalPrice": 500
+  "date": "2026-05-10",
+  "startTime": "09:00",
+  "participants": 2
 }
 ```
 
-> `userId` defaults to the authenticated user — no need to send it.
+> `userId`, `providerId`, `endTime`, and `totalPrice` are all resolved server-side — do not send them.
 
 **Response `201`**
 ```json
 {
   "success": true,
-  "message": "Booking created",
+  "message": "Booking created.",
   "data": {
     "_id": "664bbb...",
     "userId": "664aaa...",
     "activityId": "664abc123...",
     "providerId": "664xyz...",
-    "date": "2026-05-01",
-    "time": "09:00",
+    "date": "2026-05-10T00:00:00.000Z",
+    "startTime": "09:00",
+    "endTime": "12:00",
     "participants": 2,
-    "totalPrice": 500,
+    "totalPrice": 700,
     "status": "pending",
     "paymentStatus": "pending"
   }

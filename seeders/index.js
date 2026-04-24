@@ -21,6 +21,19 @@ function log(msg) {
     console.log(msg);
 }
 
+/** "HH:mm" → minutes since midnight */
+const toMinutes = (hhmm) => {
+    const [h, m] = hhmm.split(':').map(Number);
+    return h * 60 + m;
+};
+
+/** minutes → "HH:mm" */
+const fromMinutes = (mins) => {
+    const h = Math.floor(mins / 60) % 24;
+    const m = mins % 60;
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+};
+
 // Build a lookup: activityKey → providerKey (for booking inserts)
 const activityProviderMap = {};
 for (const a of activitiesData) {
@@ -101,13 +114,28 @@ async function seed() {
             providerId: userIdMap[a.providerKey].toString(),
         });
 
-        // Collect availability documents for this activity
+        // Collect availability documents for this activity (regular slots)
         for (const av of a.availabilities) {
             availabilityDocs.push({
                 activityId: activity._id,
+                providerId: userIdMap[a.providerKey],
                 date: new Date(av.date),
-                timeSlots: av.timeSlots,
+                timeSlots: av.timeSlots.map(({ startTime, availableSpots }) => ({ startTime, availableSpots })),
+                isBlocked: false,
             });
+        }
+
+        // Collect blocked dates for this activity
+        if (Array.isArray(a.blockedDates)) {
+            for (const bd of a.blockedDates) {
+                availabilityDocs.push({
+                    activityId: activity._id,
+                    providerId: userIdMap[a.providerKey],
+                    date: new Date(bd),
+                    timeSlots: [],
+                    isBlocked: true,
+                });
+            }
         }
     }
     log(`✅  Inserted ${reportActivities.length} activities`);
@@ -117,17 +145,24 @@ async function seed() {
     log(`✅  Inserted ${availabilityDocs.length} availability records`);
 
     // ── 5. Insert Bookings ─────────────────────────────────────────────────
-    const bookingDocs = bookingsData.map((b) => ({
-        userId: userIdMap[b.userKey],
-        activityId: activityIdMap[b.activityKey],
-        providerId: userIdMap[activityProviderMap[b.activityKey]],
-        date: new Date(b.date),
-        time: b.time,
-        participants: b.participants,
-        totalPrice: b.totalPrice,
-        status: b.status,
-        paymentStatus: b.paymentStatus,
-    }));
+    const bookingDocs = bookingsData.map((b) => {
+        const activity = activitiesData.find((a) => a.key === b.activityKey);
+        const durationMins = Math.round(Number(activity?.duration || 0) * 60);
+        const startTime = b.startTime;
+        const endTime = fromMinutes(toMinutes(startTime) + durationMins);
+        return {
+            userId: userIdMap[b.userKey],
+            activityId: activityIdMap[b.activityKey],
+            providerId: userIdMap[activityProviderMap[b.activityKey]],
+            date: new Date(b.date),
+            startTime,
+            endTime,
+            participants: b.participants,
+            totalPrice: b.totalPrice,
+            status: b.status,
+            paymentStatus: b.paymentStatus,
+        };
+    });
 
     const insertedBookings = await Booking.insertMany(bookingDocs);
     log(`✅  Inserted ${insertedBookings.length} bookings\n`);
@@ -143,7 +178,7 @@ async function seed() {
         providerKey: activityProviderMap[b.activityKey],
         providerId: userIdMap[activityProviderMap[b.activityKey]].toString(),
         date: b.date,
-        time: b.time,
+        startTime: b.startTime,
         participants: b.participants,
         totalPrice: b.totalPrice,
         status: b.status,

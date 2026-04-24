@@ -4,14 +4,14 @@ const { authenticate, authorize } = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
-// Client
-router.get('/me', authenticate, bookingController.listMine);
+// Client — create & view own bookings
 router.post('/', authenticate, authorize('client', 'admin'), bookingController.create);
+router.get('/me', authenticate, bookingController.listMine);
 
-// Provider
+// Provider — view incoming bookings
 router.get('/provider', authenticate, authorize('prestataire', 'admin'), bookingController.listAsProvider);
 
-// Update status/payment status (owner/provider/admin)
+// Owner / provider / admin — update booking status
 router.patch('/:id', authenticate, bookingController.updateStatus);
 
 module.exports = router;

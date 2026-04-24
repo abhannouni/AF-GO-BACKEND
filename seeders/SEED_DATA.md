@@ -10,7 +10,7 @@ This document describes the test data inserted by `npm run seed`. It covers enti
 | -------------- | ------- | -------------------------------------------------- |
 | Users          | 11      | 1 admin, 4 prestataires, 6 clients                 |
 | Activities     | 12      | 3 per prestataire, spread across 5 Moroccan cities |
-| Availabilities | 36      | 3 availability dates × 1–3 time slots per activity |
+| Availabilities | 40      | 36 regular (3 dates × 12 activities) + 4 blocked dates |
 | Bookings       | 15      | Covering confirmed, pending, and cancelled states  |
 
 ---
@@ -120,23 +120,50 @@ Activities are distributed across 5 Moroccan cities. Each `providerId` reference
 
 ## Availabilities
 
-Each activity has 3 upcoming availability dates (May 2026), each with 1–3 time slots.
+Each activity has 3 upcoming availability dates (May 2026), each with 1–3 time slots. Three activities also have blocked dates to demonstrate the provider "close a day" feature.
 
-### Example availability record
+> **Note:** `endTime` is **not stored** in the database. It is derived at query time from `activity.duration`.
+
+### Regular availability record
 
 ```json
 {
   "_id": "<ObjectId>",
   "activityId": "<ObjectId of act1>",
+  "providerId": "<ObjectId of jean_dupont>",
   "date": "2026-05-05T00:00:00.000Z",
   "timeSlots": [
-    { "startTime": "09:00", "endTime": "11:00", "availableSpots": 15 },
-    { "startTime": "14:00", "endTime": "16:00", "availableSpots": 12 }
+    { "startTime": "09:00", "availableSpots": 15 },
+    { "startTime": "14:00", "availableSpots": 12 }
   ],
+  "isBlocked": false,
   "createdAt": "<ISO timestamp>",
   "updatedAt": "<ISO timestamp>"
 }
 ```
+
+### Blocked date record
+
+```json
+{
+  "_id": "<ObjectId>",
+  "activityId": "<ObjectId of act1>",
+  "providerId": "<ObjectId of jean_dupont>",
+  "date": "2026-05-26T00:00:00.000Z",
+  "timeSlots": [],
+  "isBlocked": true,
+  "createdAt": "<ISO timestamp>",
+  "updatedAt": "<ISO timestamp>"
+}
+```
+
+### Blocked dates per activity
+
+| Activity key | Provider       | Blocked date(s)              | Scenario                  |
+|--------------|----------------|------------------------------|---------------------------|
+| act1         | jean_dupont    | 2026-05-26                   | Public holiday closure    |
+| act7         | pierre_leblanc | 2026-05-28                   | Equipment maintenance     |
+| act10        | sophie_bernard | 2026-05-28, 2026-05-29       | Provider unavailable      |
 
 ---
 
@@ -171,7 +198,8 @@ Each activity has 3 upcoming availability dates (May 2026), each with 1–3 time
   "activityId": "<ObjectId of act1>",
   "providerId": "<ObjectId of jean_dupont>",
   "date": "2026-05-05T00:00:00.000Z",
-  "time": "09:00",
+  "startTime": "09:00",
+  "endTime": "12:00",
   "participants": 2,
   "totalPrice": 700,
   "status": "confirmed",
@@ -194,6 +222,7 @@ Each activity has 3 upcoming availability dates (May 2026), each with 1–3 time
 | Multiple bookings for same activity   | `act1` has 2 bookings (alice + chloe); `act3` has 2 bookings (alice + emma); `act4` has 2 bookings (alice + thomas); `act12` has 2 bookings (chloe + emma) |
 | Multiple activities per prestataire   | Each of the 4 prestataires owns exactly 3 activities                          |
 | Prestataire with a cancelled booking  | Bookings on `sophie_bernard`'s act10 include a cancellation                   |
+| Provider-blocked dates                | act1 (2026-05-26), act7 (2026-05-28), act10 (2026-05-28 & 2026-05-29) — `isBlocked: true`, `timeSlots: []` |
 
 ---
 
