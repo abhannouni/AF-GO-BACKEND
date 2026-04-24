@@ -14,44 +14,7 @@ const tripRoutes = require('./routes/trip.routes');
 const app = express();
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
-const normalizeOrigin = (value = '') => value.trim().replace(/\/$/, '').toLowerCase();
-
-const allowedOrigins = process.env.CORS_ORIGIN
-    ? process.env.CORS_ORIGIN.split(',').map((o) => normalizeOrigin(o)).filter(Boolean)
-    : [];
-
-// Optional wildcard support via env, e.g. https://*.vercel.app
-const allowedOriginPatterns = process.env.CORS_ORIGIN_PATTERNS
-    ? process.env.CORS_ORIGIN_PATTERNS.split(',')
-        .map((p) => p.trim())
-        .filter(Boolean)
-        .map((p) => new RegExp(`^${p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\\\*/g, '.*')}$`, 'i'))
-    : [];
-
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            // Allow requests with no origin (e.g. curl, Postman)
-            if (!origin) {
-                callback(null, true);
-                return;
-            }
-
-            const normalized = normalizeOrigin(origin);
-            const isListedOrigin = allowedOrigins.includes(normalized);
-            const matchesPattern = allowedOriginPatterns.some((pattern) => pattern.test(normalized));
-            const allowByDevFallback = process.env.NODE_ENV !== 'production' && allowedOrigins.length === 0;
-
-            if (isListedOrigin || matchesPattern || allowByDevFallback) {
-                callback(null, true);
-            } else {
-                console.warn(`[CORS] Blocked origin: ${origin}`);
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
-        credentials: true,
-    })
-);
+app.use(cors());
 
 // ─── Body parsers ─────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10kb' }));
